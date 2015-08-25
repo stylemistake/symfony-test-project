@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>{% block title %}Symfony test project{% endblock %}</title>
+<link rel="stylesheet" href="/css/vendor.min.css">
+{% block stylesheets %}
+{% endblock %}
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+<style>
+/* TODO: Move styles to assets folder and add to gulpfile */
+
+/* Workaround to make error messages visible */
+.ui.form .error.message,
+.ui.form .success.message,
+.ui.form .warning.message {
+  display: block !important;
+}
+
+/* Show pointer cursor on all elements with href */
+[href], [href] * {
+  cursor: pointer !important;
+}
+
+/* Mark columns which can't be sorted */
+.ui.sortable.table thead th.nosort {
+  cursor: default !important;
+}
+.ui.sortable.table thead th.nosort:hover {
+  background-color: #f9fafb; !important;
+}
+</style>
+</head>
+<body>
+
+{% block heading %}
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+<script src="/js/vendor.min.js"></script>
+<script src="/js/app.min.js"></script>
+
+{% block javascripts %}
+{% endblock %}
+
+</body>
+</html>

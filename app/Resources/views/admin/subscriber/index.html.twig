@@ -1,0 +1,41 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block body %}
+<div class="ui container">
+  <table class="ui sortable compact table">
+    <thead>
+      <tr>
+        <th href="?{{ sort.getQuery('name') }}"
+          class="{{ sort.getClass('name') }}">
+          Name
+        </th>
+        <th href="?{{ sort.getQuery('email') }}"
+          class="{{ sort.getClass('email') }}">
+          Email
+        </th>
+        <th class="nosort">
+          Categories
+        </th>
+        <th href="?{{ sort.getQuery('date') }}"
+          class="{{ sort.getClass('date') }}">Date</th>
+        <th class="collapsing nosort">Actions</th>
+      </tr>
+    </thead>
+    {% for subscriber in subscribers %}
+    <tr>
+      <td>{{ subscriber.name }}</td>
+      <td>{{ subscriber.email }}</td>
+      <td>{{ subscriber.getCategoriesString() }}</td>
+      <td>{{ subscriber.date }}</td>
+      <td class="collapsing">
+        <a class="ui tiny teal button"
+          href="/admin/subscriber/{{ subscriber.id }}/edit">Edit</a>
+        <a class="ui tiny red button"
+          href="/admin/subscriber/{{ subscriber.id }}/delete"
+          onclick="return confirm('Are you sure?')">Remove</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

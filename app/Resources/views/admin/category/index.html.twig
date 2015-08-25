@@ -1,0 +1,38 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block body %}
+<div class="ui container">
+  <table class="ui compact table">
+    <thead>
+      <tr>
+        <th>Category name</th>
+        <th class="collapsing">Actions</th>
+      </tr>
+    </thead>
+    {% for category in categories %}
+    <tr>
+      <td>{{ category.name }}</td>
+      <td class="collapsing">
+        <a class="ui tiny fluid red button"
+          href="/admin/category/{{ category.id }}/delete"
+          onclick="return confirm('Are you sure?')">Remove</a>
+      </td>
+    </tr>
+    {% endfor %}
+    <tfoot>
+      <tr>
+        {{ form_start(form) }}
+          <th class="ui form field">
+            {{ form_widget(form.name, {
+              'attr': { 'autofocus': 'autofocus' }
+            }) }}
+          </th>
+          <th>
+            <button type="submit" class="ui fluid teal button">Add</button>
+          </th>
+        {{ form_end(form) }}
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{% endblock %}

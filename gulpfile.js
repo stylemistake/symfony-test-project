@@ -7,21 +7,32 @@ var path = {
 };
 
 gulp.task('copy', function() {
-  return gulp
-    .src(path.app + '/assets/fonts/*.{ttf,woff,eof,svg,eot}')
+  gulp.src(path.app + '/assets/fonts/*.{ttf,woff,eof,svg,eot}')
     .pipe(gulp.dest('web/fonts/'));
+  gulp.src(path.bower_components + '/semantic-ui/dist/themes/**')
+    .pipe(gulp.dest('web/css/themes/'));
 });
 
-gulp.task('vendor', function() {
+gulp.task('vendorjs', function() {
   return gulp
     .src([
-      './bower_components/jquery/dist/jquery.js',
-      './bower_components/bootstrap/assets/javascripts/bootstrap.js'
+      'bower_components/jquery/dist/jquery.js',
+      'bower_components/semantic-ui/dist/semantic.js'
     ])
     .pipe($.concat('vendor.js'))
     .pipe($.uglify({ mangle: true }))
     .pipe($.rename({ suffix: '.min' }))
     .pipe(gulp.dest('web/js/'));
+});
+
+gulp.task('vendorcss', function() {
+  return gulp
+    .src([
+      'bower_components/semantic-ui/dist/semantic.min.css'
+    ])
+    .pipe($.concat('vendor.css'))
+    .pipe($.rename({ suffix: '.min' }))
+    .pipe(gulp.dest('web/css/'));
 });
 
 gulp.task('app', function() {
@@ -37,6 +48,7 @@ gulp.task('app', function() {
 
 gulp.task('default', [
   'copy',
-  'vendor',
+  'vendorjs',
+  'vendorcss',
   'app',
 ]);

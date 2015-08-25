@@ -5,7 +5,14 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
-            memory: ~
+            memory:
+                ## NOTE: About hardcoded users:
+                ## Flat file database implementations which support Doctrine
+                ## ORM are *non existent*. Harcoded for now.
+                users:
+                    admin:
+                        password: $2a$12$dI9kdxnywHleRIwrrJm80OS2fqgkkQQC6PlCnx6vGUvyVuz2LUldy
+                        roles: 'ROLE_ADMIN'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +22,13 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
+            http_basic: ~
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 15
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        # require ROLE_ADMIN for /admin
+        - { path: ^/admin, roles: ROLE_ADMIN }

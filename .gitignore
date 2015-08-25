@@ -15,6 +15,7 @@
 
 # Yeoman
 node_modules
+bower_components
 .tmp
 .sass-cache
 web/libs
